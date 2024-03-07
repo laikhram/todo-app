@@ -1,0 +1,64 @@
+.Tasks {
+    display: flex;
+    flex-direction: column;
+
+    .header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .header .task {
+        width: 100%;
+    }
+
+    .title {
+        color: $progress-font;
+        font-family: Roboto;
+        font-size: 28px;
+        font-weight: 500;
+        line-height: 33px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: black;
+    }
+
+    .custom-select {
+        width: 200px;
+
+        select {
+            appearance: none;
+            /* safari */
+            -webkit-appearance: none;
+            /* other styles for aesthetics */
+            width: 100%;
+            font-size: 1.15rem;
+            padding: 0.675em 6em 0.675em 1em;
+            background-color: #fff;
+            border: 1px solid #caced1;
+            border-radius: 0.25rem;
+            color: #000;
+            cursor: pointer;
+
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: transparent;
+            background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+            background-repeat: no-repeat;
+            background-position-x: 100%;
+            background-position-y: 5px;
+            border: 1px solid #dfdfdf;
+            border-radius: 2px;
+            margin-right: 2rem;
+            padding: 1rem;
+            padding-right: 2rem;
+        }
+    }
+
+    .task {
+        // display: flex;
+        // flex-direction: column;
+    }
+}

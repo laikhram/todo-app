@@ -1,0 +1,40 @@
+.Task {
+    background-color: white;
+    height: 46px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+
+    .container {
+        align-items: center;
+        display: flex;
+    }
+
+    .disable {
+        text-decoration: line-through;
+        color: #A9A9A9 !important;
+    }
+
+    .title {
+        color: #2E2E2E;
+        font-size: 16px;
+    }
+
+    input[type="checkbox"] {
+        width: 17px;
+        height: 17px;
+        accent-color: #585292;
+        margin-right: 15px;
+    }
+
+    input[type="text"] {
+        background: transparent;
+        border: none;
+        outline: none;
+    }
+
+}
