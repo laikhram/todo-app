@@ -61,4 +61,8 @@
         // display: flex;
         // flex-direction: column;
     }
+
+    input#title {
+        width: calc(100% - 20px);
+    }
 }

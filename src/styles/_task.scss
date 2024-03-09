@@ -6,29 +6,100 @@
     align-items: center;
     padding: 0 20px;
     margin-bottom: 15px;
-    display: flex;
-    justify-content: space-between;
 
-    .container {
-        align-items: center;
+    .non-edit-mode,
+    .edit-mode {
         display: flex;
+        justify-content: space-between;
+        width: 100%;
     }
 
-    .disable {
-        text-decoration: line-through;
-        color: #A9A9A9 !important;
+    .non-edit-mode {
+        .container {
+            align-items: center;
+            display: flex;
+        }
+
+        .disable {
+            text-decoration: line-through;
+            color: #A9A9A9 !important;
+        }
+
+        .title {
+            color: #2E2E2E;
+            font-size: 16px;
+        }
+
+        input[type="checkbox"] {
+            width: 17px;
+            height: 17px;
+            accent-color: #585292;
+            margin-right: 15px;
+        }
+
+        .dots {
+            font-size: 36px;
+            line-height: 0;
+            margin-top: -10px;
+            letter-spacing: -2px;
+        }
+
+        .dropbtn {
+            // background-color: #04AA6D;
+            background-color: white;
+            color: #9796A8;
+            // padding: 16px;
+            font-size: 34px;
+            border: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #FFFFFF;
+            min-width: 111px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            margin-left: -75px;
+            border-radius: 10px;
+
+            .delete {
+                color: red;
+            }
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+            border-radius: 10px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block !important;
+        }
     }
 
-    .title {
-        color: #2E2E2E;
-        font-size: 16px;
-    }
-
-    input[type="checkbox"] {
-        width: 17px;
-        height: 17px;
-        accent-color: #585292;
-        margin-right: 15px;
+    .edit-mode {
+        .save-btn {
+            border-radius: 999px;
+            font-family: Arial;
+            color: #FFFFFF;
+            background: #585292;
+            text-decoration: none;
+            padding: 9px 16px;
+            margin-right: -14px;
+        }
     }
 
     input[type="text"] {
@@ -36,5 +107,4 @@
         border: none;
         outline: none;
     }
-
 }

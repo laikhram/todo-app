@@ -18,17 +18,78 @@ export const useAxiosGet = (id?: string) => {
 }
 
 export const useAxiosPost = () => {
-  return useAxios({
-    url: '/todos',
-    method: 'POST',
-  });
+  const [response, setResponse] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const executePost = async (title: string) => {
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        '/todos',
+        { title: title, completed: false }
+      );
+      setResponse(response.data);
+    } catch (error: any) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { response, error, loading, executePost };
+};
+
+export const useAxiosDelete = () => {
+  const [response, setResponse] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const execute = async (id: string) => {
+    setLoading(true);
+    try {
+      const response = await axios.delete(
+        `/todos/${id}`,
+      );
+      setResponse(response.data);
+    } catch (error: any) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { response, error, loading, execute };
 }
 
-export const useAxiosDelete = (id: string) => {
-  return useAxios({
-    url: `/todos/${id}`,
-    method: 'DELETE'
-  });
+export const useAxiosPut = () => {
+  const [response, setResponse] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const execute = async (id: string, body: { title: string, completed: boolean }) => {
+    setLoading(true);
+
+    try {
+      const response = await axios.put(
+        `/todos/${id}`,
+        body
+      );
+      setResponse(response.data);
+    } catch (error: any) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const reset = () => {
+    setResponse(null);
+    setError(null);
+    setLoading(false);
+  }
+
+  return { response, error, loading, execute, reset };
 }
 
 const useAxios = (
@@ -44,8 +105,7 @@ const useAxios = (
     try {
       const res = await axios({
         method: method,
-        url: url,
-        data: JSON.parse(body)
+        url: url
       });
       setResponse(res.data);
       setError(null);
@@ -56,26 +116,28 @@ const useAxios = (
     }
   };
 
-  const operation = async (params: any) => {
-    setLoading(true)
+  useEffect(() => {
+    if (method === 'GET') {
+      fetchData();
+    }
+  }, [method, url, body, headers]);
+
+  const execute = async (id: any, title?: string) => {
+    setLoading(true);
 
     try {
-      const res = await axios({
+      const response = await axios({
         method: method,
         url: url,
-        data: body
+        data: JSON.parse(body)
       });
-      setResponse(res.data);
-    } catch (error) {
+      setResponse(response.data);
+    } catch (error: any) {
       setError(error);
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, [method, url, body, headers]);
-
-  return { response, error, loading, operation };
+  return { response, error, loading, execute };
 };

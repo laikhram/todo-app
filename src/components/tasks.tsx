@@ -1,38 +1,54 @@
 import { useRecoilState } from 'recoil';
 import '../styles/index.scss';
 import Task from './task';
-import { tasksState } from '../recoils';
+import { filterState, tasksDisplayState, tasksState } from '../recoils';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useAxiosPost } from '../hooks/useAxios';
 
 function Tasks(props: { filter?: 'all' | 'done' | 'undone' }) {
     const [tasks, setTasks] = useRecoilState(tasksState);
-    const [filter, setFilter] = useState<string>('all');
+    const [tasksDisplay, setTasksDisplay] = useRecoilState(tasksDisplayState);
+    const [filter, setFilter] = useRecoilState(filterState);
+
     const [createTaskTitle, setCreateTaskTitle] = useState<string>('');
 
-    // const { response, error, loading, operation } = useAxiosPost();
+    const { response, error, loading, executePost } = useAxiosPost();
 
     const handleKeyDown = (event: any) => {
+        if (createTaskTitle === '') return;
+
         if (event.code === 'Enter') {
-            // operation({ title: createTaskTitle });
-            setCreateTaskTitle('');
+            executePost(createTaskTitle);
         }
     }
 
+    useEffect(() => {
+        if (error) return;
+
+        if (response) {
+            setTasks([...tasks, response]);
+            setCreateTaskTitle('');
+        }
+    }, [loading])
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setCreateTaskTitle(event.target.title);
+        setCreateTaskTitle(event.target.value);
     }
 
     useEffect(() => {
+        console.log('testtsst', tasks)
+    }, [tasks]);
 
-    }, [props.filter]);
+    const handleSelect = (event: ChangeEvent<HTMLSelectElement>) => {
+        setFilter(event.target.value);
+    }
 
     return (
         <div className="Tasks">
             <div className="header">
                 <div className="title">Tasks</div>
                 <div className="custom-select">
-                    <select name="cars" id="cars">
+                    <select name="cars" onChange={handleSelect}>
                         <option value="all">All</option>
                         <option value="done">Done</option>
                         <option value="undone">Undone</option>
@@ -46,7 +62,7 @@ function Tasks(props: { filter?: 'all' | 'done' | 'undone' }) {
                 )}
 
                 <div className="Task">
-                    <input type="text" id="title" name="title" placeholder="Add your todo..." onChange={handleChange} onKeyDown={handleKeyDown} />
+                    <input type="text" value={createTaskTitle} id="title" name="title" placeholder="Add your todo..." onChange={handleChange} onKeyDown={handleKeyDown} />
                 </div>
             </div>
         </div>
