@@ -3,17 +3,12 @@ import '../styles/index.scss';
 import { TaskModel } from '../interfaces';
 import { useAxiosDelete, useAxiosPut } from '../hooks/useAxios';
 import { useRecoilState } from 'recoil';
-import { progressState, tasksState } from '../recoils';
+import { tasksState } from '../recoils';
 
 function Task(props: { data: TaskModel }) {
     const { data } = props;
 
-    useEffect(() => {
-        console.log('datadatadata', data)
-    }, [data])
-
     const [tasks, setTasks] = useRecoilState(tasksState);
-    const [progressCount, setProgressCount] = useRecoilState(progressState);
 
     const [isCompleted, setIsCompleted] = useState<boolean>(data.completed);
     const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -23,18 +18,22 @@ function Task(props: { data: TaskModel }) {
     const useAxiosDeleteHook = useAxiosDelete();
 
     const handleCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
-        setIsCompleted(event.target.checked);
         useAxiosPutCheckbox.execute(data.id, {
             title: data.title,
             completed: event.target.checked
-        })
+        });
+        setIsCompleted(event.target.checked);
     }
 
     useEffect(() => {
         if (useAxiosPutCheckbox.error) return;
 
         if (!useAxiosPutCheckbox.loading && useAxiosPutCheckbox.response) {
-            setProgressCount(isCompleted ? progressCount + 1 : progressCount - 1);
+            const newTasks = [...tasks];
+            const taskTarget = tasks.findIndex(task => task.id === data.id);
+
+            newTasks[taskTarget] = useAxiosPutCheckbox.response as TaskModel
+            setTasks([...newTasks]);
         }
     }, [useAxiosPutCheckbox.response])
 

@@ -1,14 +1,15 @@
 import { useRecoilState } from 'recoil';
 import '../styles/index.scss';
-import { progressState, tasksState } from '../recoils';
+import { tasksState } from '../recoils';
 import { useEffect, useState } from 'react';
 
 function Progress() {
     const [tasks, setTasks] = useRecoilState(tasksState);
-    const [progressCount, setProgressCount] = useRecoilState(progressState);
+
+    const [progressCount, setProgressCount] = useState(0);
 
     useEffect(() => {
-        setProgressCount(tasks.filter(task => task.completed === true).length || 0);
+        setProgressCount(tasks.filter(task => task.completed === true).length || 0)
     }, [tasks]);
 
     return (

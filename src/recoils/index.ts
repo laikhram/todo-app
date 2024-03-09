@@ -6,16 +6,6 @@ export const tasksState = atom({
     default: [] as TaskModel[]
 });
 
-export const tasksDisplayState = atom({
-    key: 'tasksDisplayState',
-    default: [] as TaskModel[]
-});
-
-export const progressState = atom({
-    key: 'progressState',
-    default: 0
-});
-
 export const filterState = atom({
     key: 'filterState',
     default: 'all'

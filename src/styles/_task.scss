@@ -33,7 +33,7 @@
         input[type="checkbox"] {
             width: 17px;
             height: 17px;
-            accent-color: #585292;
+            accent-color: $purple;
             margin-right: 15px;
         }
 
@@ -61,7 +61,7 @@
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: #FFFFFF;
+            background-color: $white;
             min-width: 111px;
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
@@ -94,8 +94,8 @@
         .save-btn {
             border-radius: 999px;
             font-family: Arial;
-            color: #FFFFFF;
-            background: #585292;
+            color: $white;
+            background: $purple;
             text-decoration: none;
             padding: 9px 16px;
             margin-right: -14px;

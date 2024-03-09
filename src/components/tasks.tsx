@@ -1,13 +1,13 @@
 import { useRecoilState } from 'recoil';
 import '../styles/index.scss';
 import Task from './task';
-import { filterState, tasksDisplayState, tasksState } from '../recoils';
+import { filterState, tasksState } from '../recoils';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useAxiosPost } from '../hooks/useAxios';
+import { TaskModel } from '../interfaces';
 
 function Tasks(props: { filter?: 'all' | 'done' | 'undone' }) {
     const [tasks, setTasks] = useRecoilState(tasksState);
-    const [tasksDisplay, setTasksDisplay] = useRecoilState(tasksDisplayState);
     const [filter, setFilter] = useRecoilState(filterState);
 
     const [createTaskTitle, setCreateTaskTitle] = useState<string>('');
@@ -35,20 +35,34 @@ function Tasks(props: { filter?: 'all' | 'done' | 'undone' }) {
         setCreateTaskTitle(event.target.value);
     }
 
-    useEffect(() => {
-        console.log('testtsst', tasks)
-    }, [tasks]);
-
     const handleSelect = (event: ChangeEvent<HTMLSelectElement>) => {
         setFilter(event.target.value);
+    }
+
+    const [tasksLocal, setTasksLocal] = useState<TaskModel[]>([]);
+
+    useEffect(() => {
+        let tasksFilter = tasks;
+
+        if (filter === 'done') {
+            tasksFilter = tasks.filter((task: TaskModel) => task.completed === true)
+        } else if (filter === 'undone') {
+            tasksFilter = tasks.filter((task: TaskModel) => task.completed === false)
+        }
+
+        setTasksLocal(tasksFilter);
+    }, [tasks, filter])
+
+    const TaskGenerator = () => {
+        return <div>{tasksLocal.map(task => <Task data={task} />)}</div>
     }
 
     return (
         <div className="Tasks">
             <div className="header">
                 <div className="title">Tasks</div>
-                <div className="custom-select">
-                    <select name="cars" onChange={handleSelect}>
+                <div className="custom-select" style={{ width: '200px' }}>
+                    <select className="filter" onChange={handleSelect}>
                         <option value="all">All</option>
                         <option value="done">Done</option>
                         <option value="undone">Undone</option>
@@ -57,9 +71,7 @@ function Tasks(props: { filter?: 'all' | 'done' | 'undone' }) {
             </div>
 
             <div className="task">
-                {tasks.map(task =>
-                    <Task data={task} />
-                )}
+                <TaskGenerator />
 
                 <div className="Task">
                     <input type="text" value={createTaskTitle} id="title" name="title" placeholder="Add your todo..." onChange={handleChange} onKeyDown={handleKeyDown} />
