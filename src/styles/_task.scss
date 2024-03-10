@@ -1,5 +1,5 @@
 .Task {
-    background-color: white;
+    background-color: $white;
     height: 46px;
     border-radius: 9999px;
     display: flex;
@@ -40,16 +40,13 @@
         .dots {
             font-size: 36px;
             line-height: 0;
-            margin-top: -10px;
             letter-spacing: -2px;
         }
 
         .dropbtn {
-            // background-color: #04AA6D;
-            background-color: white;
-            color: #9796A8;
-            // padding: 16px;
-            font-size: 34px;
+            background-color: $white;
+            color: $dot-grey;
+            font-size: 26px;
             border: none;
         }
 
@@ -65,28 +62,30 @@
             min-width: 111px;
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
-            margin-left: -75px;
+            margin-left: -92px;
             border-radius: 10px;
 
             .delete {
-                color: red;
+                color: $red;
             }
         }
 
         .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
+            color: $black;
+            padding: 9px 11px;
             text-decoration: none;
             display: block;
         }
 
         .dropdown-content a:hover {
-            background-color: #ddd;
+            background-color: $purple;
             border-radius: 10px;
+            color: $white;
         }
 
         .dropdown:hover .dropdown-content {
             display: block !important;
+            padding: 5px;
         }
     }
 

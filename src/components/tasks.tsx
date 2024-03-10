@@ -1,10 +1,11 @@
-import { useRecoilState } from 'recoil';
-import '../styles/index.scss';
-import Task from './task';
-import { filterState, tasksState } from '../recoils';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { useAxiosPost } from '../hooks/useAxios';
 import { TaskModel } from '../interfaces';
+import { filterState, tasksState } from '../recoils';
+import '../styles/index.scss';
+import SelectFilter from './select-filter';
+import Task from './task';
 
 function Tasks(props: { filter?: 'all' | 'done' | 'undone' }) {
     const [tasks, setTasks] = useRecoilState(tasksState);
@@ -35,10 +36,6 @@ function Tasks(props: { filter?: 'all' | 'done' | 'undone' }) {
         setCreateTaskTitle(event.target.value);
     }
 
-    const handleSelect = (event: ChangeEvent<HTMLSelectElement>) => {
-        setFilter(event.target.value);
-    }
-
     const [tasksLocal, setTasksLocal] = useState<TaskModel[]>([]);
 
     useEffect(() => {
@@ -61,13 +58,7 @@ function Tasks(props: { filter?: 'all' | 'done' | 'undone' }) {
         <div className="Tasks">
             <div className="header">
                 <div className="title">Tasks</div>
-                <div className="custom-select" style={{ width: '200px' }}>
-                    <select className="filter" onChange={handleSelect}>
-                        <option value="all">All</option>
-                        <option value="done">Done</option>
-                        <option value="undone">Undone</option>
-                    </select>
-                </div>
+                <SelectFilter />
             </div>
 
             <div className="task">

@@ -1,5 +1,8 @@
 {
     "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
     "[typescript]": {
         "editor.tabSize": 2
     }

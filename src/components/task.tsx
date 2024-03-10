@@ -1,9 +1,10 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import '../styles/index.scss';
-import { TaskModel } from '../interfaces';
-import { useAxiosDelete, useAxiosPut } from '../hooks/useAxios';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { BsThreeDots } from 'react-icons/bs';
 import { useRecoilState } from 'recoil';
+import { useAxiosDelete, useAxiosPut } from '../hooks/useAxios';
+import { TaskModel } from '../interfaces';
 import { tasksState } from '../recoils';
+import '../styles/index.scss';
 
 function Task(props: { data: TaskModel }) {
     const { data } = props;
@@ -81,7 +82,7 @@ function Task(props: { data: TaskModel }) {
                         <span className={"title " + (isCompleted ? 'disable' : '')}>{title}</span>
                     </label>
                     <div className="dropdown">
-                        <button className="dropbtn dots">...</button>
+                        <button className="dropbtn dots"><BsThreeDots /></button>
                         <div className="dropdown-content">
                             <a className="edit" onClick={handleEdit}>Edit</a>
                             <a className="delete" onClick={handleDelete}>Delete</a>

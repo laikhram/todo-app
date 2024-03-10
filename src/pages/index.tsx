@@ -5,7 +5,6 @@ import '../styles/index.scss';
 import { useRecoilState } from 'recoil';
 import { tasksState } from '../recoils';
 import { useAxiosGet } from '../hooks/useAxios';
-import { TaskModel } from '../interfaces';
 
 function Index() {
     const { response, error, loading } = useAxiosGet();

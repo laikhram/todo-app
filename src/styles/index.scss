@@ -3,6 +3,7 @@
 @import 'progress';
 @import 'tasks';
 @import 'task';
+@import 'select-filter';
 
 body {
     margin: 0;
@@ -14,11 +15,6 @@ body {
     background-color: $body-background;
 }
 
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-        monospace;
-}
-
 .App {
     margin: 30px auto;
     max-width: 450px;
@@ -27,7 +23,9 @@ code {
 @media only screen and (max-width: 740px) {
     .App {
         margin: 30px 0;
-        width: 100%;
+        width: none;
         max-width: none;
+        min-width: 350px;
+        padding: 0px 23px;
     }
 }
