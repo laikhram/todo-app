@@ -1,25 +1,29 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import Progress from '../components/progress';
 import Tasks from '../components/tasks';
-import '../styles/index.scss';
-import { useRecoilState } from 'recoil';
-import { tasksState } from '../recoils';
 import { useAxiosGet } from '../hooks/useAxios';
+import { tasksState } from '../recoils';
+import '../styles/index.scss';
 
 function Index() {
     const { response, error, loading } = useAxiosGet();
     const [tasks, setTasks] = useRecoilState(tasksState);
 
+    const [message, setMessage] = useState('Loading');
+
     useEffect(() => {
         if (response) {
             setTasks(loading ? [] : response);
+        } else if (error) {
+            setMessage('Error')
         }
     }, [loading]);
 
     return (
         <div>
-            {loading ?
-                'Loading' :
+            {loading || error ?
+                <div>{message}</div> :
                 <div className="App">
                     <Progress />
                     <Tasks />
