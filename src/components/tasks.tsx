@@ -12,6 +12,7 @@ function Tasks(props: { filter?: 'all' | 'done' | 'undone' }) {
     const [filter, setFilter] = useRecoilState(filterState);
 
     const [createTaskTitle, setCreateTaskTitle] = useState<string>('');
+    const [tasksLocal, setTasksLocal] = useState<TaskModel[]>([]);
 
     const { response, error, loading, executePost } = useAxiosPost();
 
@@ -36,7 +37,6 @@ function Tasks(props: { filter?: 'all' | 'done' | 'undone' }) {
         setCreateTaskTitle(event.target.value);
     }
 
-    const [tasksLocal, setTasksLocal] = useState<TaskModel[]>([]);
 
     useEffect(() => {
         let tasksFilter = tasks;
